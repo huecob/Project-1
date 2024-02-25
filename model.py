@@ -1,15 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from server import app
-
-# Set the database URI and other configurations
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql:///project1"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-# Initialize SQLAlchemy
-db = SQLAlchemy(app)
-
-# Define your models below...
+from app import db, app
 
 class User(db.Model):
     """User Information"""

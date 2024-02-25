@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block homepagetitle %}Landing Page{% endblock %}
+
+{% block homepage %}
+
+<h1> BRAND TITLE </h1>
+
+<h2>Create an Account</h2>
+<form action="/users" method="POST">
+    <p>
+        Email <input type="text" name="email">
+    </p>
+
+    <p>
+        Password <input type="password" name="password">
+    </p>
+
+    <p>
+        <input type="submit">
+    </p>
+</form>
+
+{% endblock %}
