@@ -33,6 +33,22 @@ def register_new_user():
 
     return redirect("/")
 
+@app.route("/login", methods=["POST"])
+def login_user():
+    """Processes the user login via manual credentials."""
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = crud.find_user_by_email(email)
+
+    if not user or user.password != password:
+        flash("Your credentials seem to be incorrect. Please try again.")
+    else:
+        session["user_email"] = user.email
+        flash(f"Welcome back, {user.email}")
+
+    return redirect('/')
 
 if __name__ == "__main__":
 
