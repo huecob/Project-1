@@ -4,8 +4,19 @@
 
 {% block homepage %}
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class = 'flashes'>
+    {% for message in messages %}
+    {{message}}
+    {% endfor %}
+  </div>
+    {% endif %}
+    {% endwith %}
+
 <h1> BRAND TITLE </h1>
 
+{% if 'email' not in session %}
 <h2>Create an Account</h2>
 <form action="/users" method="POST">
     <p>
@@ -35,5 +46,12 @@
         <input type="submit">
     </p>
 </form>
+{% endif %}
+
+{% if 'email' in session %}
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+{% endif %}
 
 {% endblock %}

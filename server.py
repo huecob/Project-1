@@ -12,7 +12,7 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """This is going to be our homepage"""
 
-    return render_template('homepage.html')
+    return render_template('homepage.html', )
 
 @app.route("/users", methods=["POST"])
 def register_new_user():
@@ -45,8 +45,15 @@ def login_user():
     if not user or user.password != password:
         flash("Your credentials seem to be incorrect. Please try again.")
     else:
-        session["user_email"] = user.email
+        session['email'] = user.email
         flash(f"Welcome back, {user.email}")
+
+    return redirect('/')
+
+@app.route("/logout", methods=["POST"])
+def logout_user():
+
+    session.pop('email', None)
 
     return redirect('/')
 
