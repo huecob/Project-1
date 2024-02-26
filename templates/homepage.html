@@ -48,10 +48,20 @@
 </form>
 {% endif %}
 
+
+
 {% if 'email' in session %}
-    <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-    </form>
+
+<button id="getLocationBtn">Get Location</button>
+
+<p id="coordinates">Latitude: <span id="latitude"></span>, Longitude: <span id="longitude"></span></p>
+
+<script src="/static/geolocation.js"></script>
+
+<form action="/logout" method="POST">
+    <button type="submit">Logout</button>
+</form>
+
 {% endif %}
 
 {% endblock %}
