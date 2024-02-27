@@ -1,0 +1,4 @@
+Technologies Used:
+
+MDN Geolcator API
+OpenWeatherMap API

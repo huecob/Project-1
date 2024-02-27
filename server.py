@@ -3,7 +3,9 @@
 from flask import render_template, request, flash, session, redirect
 from jinja2 import StrictUndefined
 from app import db, app
+import json
 import crud
+import openweathermap
 
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
@@ -56,6 +58,12 @@ def logout_user():
     session.pop('email', None)
 
     return redirect('/')
+
+@app.route("/weather", methods=["POST"])
+def get_weather():
+   
+   data = request.json
+
 
 if __name__ == "__main__":
 

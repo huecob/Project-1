@@ -9,17 +9,33 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    document.getElementById("demo").innerHTML = "Latitude: " + latitude + "<br>Longitude: " + longitude;
-}
-
-function showPosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
     document.getElementById("latitude").innerText = latitude.toFixed(6);
     document.getElementById("longitude").innerText = longitude.toFixed(6);
+}
+
+function sendCoordinates(latitude, longitude) {
+    fetch('/weather', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({latitude: latitude, longitude: longitude})
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+    });
 }
 
 // Function to handle errors
