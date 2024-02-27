@@ -1,6 +1,6 @@
 """Python Flask Server"""
 
-from flask import render_template, request, flash, session, redirect
+from flask import render_template, request, flash, session, redirect, jsonify
 from jinja2 import StrictUndefined
 from app import db, app
 import json
@@ -14,9 +14,9 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """This is going to be our homepage"""
 
-    return render_template('homepage.html', )
+    return render_template('homepage.html')
 
-@app.route("/users", methods=["POST"])
+@app.route("/register-users", methods=["POST"])
 def register_new_user():
     """Creates a new user in our DB"""
     
@@ -59,11 +59,20 @@ def logout_user():
 
     return redirect('/')
 
-@app.route("/weather", methods=["POST"])
-def get_weather():
+@app.route("/locate", methods=["POST"])
+def locate_user():
    
-   data = request.json
+   #the coordinates are already being sent to this route!
+    
+    #access the json that's been sent this route
+    data = request.json
 
+    latitude = data['latitude']
+    longitude = data['longitude']
+
+    print(f'{latitude}, {longitude}')
+
+    return jsonify({'latitude': latitude, 'longitude': longitude})
 
 if __name__ == "__main__":
 

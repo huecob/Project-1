@@ -18,7 +18,7 @@
 
 {% if 'email' not in session %}
 <h2>Create an Account</h2>
-<form action="/users" method="POST">
+<form action="/register-users" method="POST">
     <p>
         Email <input type="text" name="email">
     </p>
@@ -53,8 +53,6 @@
 {% if 'email' in session %}
 
 <button id="getLocationBtn">Get Location</button>
-
-<p id="coordinates">Latitude: <span id="latitude"></span>, Longitude: <span id="longitude"></span></p>
 
 <script src="/static/geolocation.js"></script>
 

@@ -12,31 +12,38 @@ function showPosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    document.getElementById("latitude").innerText = latitude.toFixed(6);
-    document.getElementById("longitude").innerText = longitude.toFixed(6);
+    sendCoordinates(latitude, longitude)
 }
 
 function sendCoordinates(latitude, longitude) {
-    fetch('/weather', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({latitude: latitude, longitude: longitude})
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
-    });
+    try {
+        const jsonBody = JSON.stringify({latitude: latitude, longitude: longitude});
+        // console.log('JSON String:', jsonBody); 
+
+        fetch('/locate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonBody
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+        });
+    } catch (error) {
+        console.error('Error occurred during JSON serialization:', error);
+    }
 }
+
 
 // Function to handle errors
 function showError(error) {
@@ -54,12 +61,4 @@ function showError(error) {
             alert("An unknown error occurred.");
             break;
     }
-}
-
-// Check if geolocation is supported
-if (navigator.geolocation) {
-    // Get current position
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-} else {
-    alert("Geolocation is not supported by this browser.");
 }
