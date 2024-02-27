@@ -70,9 +70,13 @@ def locate_user():
     latitude = data['latitude']
     longitude = data['longitude']
 
-    print(f'{latitude}, {longitude}')
+    # print(f'{latitude}, {longitude}')
 
-    return jsonify({'latitude': latitude, 'longitude': longitude})
+    weather_data = openweathermap.get_weather(latitude, longitude)
+
+    print(weather_data)
+
+    return jsonify(weather_data)
 
 if __name__ == "__main__":
 
