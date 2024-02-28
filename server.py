@@ -73,10 +73,16 @@ def locate_user():
     # print(f'{latitude}, {longitude}')
 
     weather_data = openweathermap.get_weather(latitude, longitude)
+    city_data = openweathermap.get_city(latitude, longitude)
 
-    print(weather_data)
+    # Extract description of the current weather
+    current_weather_description = weather_data['current']['weather'][0]['description']
 
-    return jsonify(weather_data)
+    print("Current weather description:", current_weather_description)
+
+    # Return the current weather description as JSON response
+    return jsonify({"current_weather_description": current_weather_description},
+                   {"City": city_data})
 
 if __name__ == "__main__":
 
